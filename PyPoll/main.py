@@ -19,9 +19,20 @@ normalizedCandidates = (df['Candidate'].value_counts(normalize=True).sort_index(
 countOfCandidates = df['Candidate'].value_counts().sort_index().values
 sortedNames = df['Candidate'].value_counts().sort_index().index
 
+# print all desired variables 
 print("Election Results\n-------------------------\nTotal Votes: {}\n-------------------------".format(totalVotes))
 for _,i in enumerate(sortedNames):
     print("{}: {:.3f}% ({})".format(i,normalizedCandidates[_], countOfCandidates[_]))
 
 print("-------------------------")
 print("Winner: {}\n-------------------------".format(df['Candidate'].value_counts().sort_values(ascending=False).index[0]))
+
+# method to write exact output to output.txt file in analysis directory
+with open('analysis/output.txt','a') as f:
+    f.write("Election Results\n-------------------------\nTotal Votes: {}\n-------------------------".format(totalVotes))
+    for _,i in enumerate(sortedNames):
+        f.write("\n{}: {:.3f}% ({})".format(i,normalizedCandidates[_], countOfCandidates[_]))
+
+    f.write("\n-------------------------")
+    f.write("\nWinner: {}\n-------------------------".format(df['Candidate'].value_counts().sort_values(ascending=False).index[0]))
+
